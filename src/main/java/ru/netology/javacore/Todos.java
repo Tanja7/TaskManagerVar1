@@ -1,14 +1,10 @@
 package ru.netology.javacore;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Todos {
     private final List<String> taskList = new ArrayList<>();
+    private final List<Command> commands = new ArrayList<>();
 
     public Todos() {
 
@@ -16,10 +12,10 @@ public class Todos {
 
     // добавление задачи в список
     public void addTask(String task) {
-        if (taskList.size() < 7){
-        taskList.add(task);
+        if (taskList.size() < 7) {
+            taskList.add(task);
         }
-                       }
+    }
 
     // удаление задачи из списка
     public void removeTask(String task) {
@@ -32,9 +28,9 @@ public class Todos {
         for (String task : taskList) {
             System.out.print(task + " ");
         }
-        System.out.println("");
         return taskList.toString();
     }
+
     @Override
     public String toString() {
         return taskList.toString();
@@ -47,12 +43,24 @@ public class Todos {
         String operation = todoCommand.getType();
         // извлечение задачи
         String task1 = todoCommand.getTask();
+        Command c;
         switch (operation) {
             case "ADD": // добавить задачу в список
-                addTask(task1);
+                c = new AddCommand(this, task1);
+                c.execute();
+                commands.add(c);
                 break;
             case "REMOVE": // удаление задачи из списка
-                removeTask(task1);
+                c = new RemoveCommand(this, task1);
+                c.execute();
+                commands.add(c);
+                break;
+            case "RESTORE": // отмена действия последней операции
+                if (commands.size() > 0) {
+                    c = commands.get(commands.size() - 1);
+                    c.unExecute();
+                    commands.remove(c);
+                }
                 break;
             default:
                 System.out.println("Введен некорректный ТИП операции!!!");
@@ -60,4 +68,5 @@ public class Todos {
         }
         return todoCommand.toString();
     }
+
 }
