@@ -6,11 +6,11 @@ import java.net.Socket;
 
 
 public class TodoServer {
-    private static int port;
+    private int port;
     private final Todos todos;
 
     public TodoServer(int port, Todos todos) {
-        TodoServer.port = port;
+        this.port = port;
         this.todos = todos;
     }
 

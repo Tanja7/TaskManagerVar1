@@ -6,13 +6,15 @@ public class Todos {
     private final List<String> taskList = new ArrayList<>();
     private final List<Command> commands = new ArrayList<>();
 
+    private int size = 7; // максимальный размер списка
+
     public Todos() {
 
     }
 
     // добавление задачи в список
     public void addTask(String task) {
-        if (taskList.size() < 7) {
+        if (taskList.size() < size) {
             taskList.add(task);
         }
     }
@@ -25,15 +27,12 @@ public class Todos {
     // получение всех актуальных задач
     public String getAllTasks() {
         Collections.sort(taskList);
-        for (String task : taskList) {
-            System.out.print(task + " ");
-        }
-        return taskList.toString();
+        return String.join(" ", taskList);
     }
 
     @Override
     public String toString() {
-        return taskList.toString();
+        return String.join(" ", taskList);
     }
 
 

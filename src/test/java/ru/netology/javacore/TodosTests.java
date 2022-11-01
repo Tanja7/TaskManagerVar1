@@ -25,7 +25,7 @@ public class TodosTests {
         todos.addTask("Помыть посуду");
         List<String> expected = Arrays.asList("Учеба", "Прогулка", "Занятие", "Попить кофе",
                 "Идти на работу", "Приготовить еду", "Уборка");
-        Assertions.assertEquals(expected.toString(), todos.toString());
+        Assertions.assertEquals(expected.toString().join(" ", expected), todos.toString());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TodosTests {
         todos.addTask("Занятие");
         todos.removeTask("Прогулка");
         List<String> expected = Arrays.asList("Учеба", "Занятие");
-        Assertions.assertEquals(expected.toString(), todos.toString());
+        Assertions.assertEquals(expected.toString().join(" ", expected), todos.toString());
     }
 
     @Test
@@ -50,6 +50,6 @@ public class TodosTests {
         todos.removeTask("Выпечка");
         todos.removeTask("Отдых");
         List<String> expected = Arrays.asList("Прогулка", "Учеба", "Чтение");
-        Assertions.assertEquals(expected.toString(), todos.getAllTasks());
+        Assertions.assertEquals(expected.toString().join(" ", expected), todos.getAllTasks());
     }
 }
